@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Review App</title>
+    <link th:if="${mode == 'development'}" rel="stylesheet" href="../static/bootstrap.css" th:href="@{/bootstrap.css}"/>
+    <link th:if="${mode == 'production'}" rel="stylesheet" href="../static/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
+
+    <script type="text/javascript" src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
+    <script type="text/javascript" src="/static/app/app.module.js" th:src="@{/app/app.module.js}"></script>
+    <script type="text/javascript" src="/static/app/singleItem.controller.js" th:src="@{/app/singleItem.controller.js}"></script>
+
+</head>
+<body ng-app="app" ng-controller="SingleItemController as vm" ng-init="init('${id}')">
+<header>
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <a class="navbar-brand" href="/">Review App</a>
+            </div>
+            <p class="navbar-text" th:text="'Signed in as '+${username}" style="margin-right: 10px;">Signed in as Anonymus</p>
+        <p th:text="${id}">Id</p>
+        </div>
+    </nav>
+</header>
+<div>
+    <div class="row">
+        <div class="col-lg-auto offset-2 align-content-center" ng-repeat="item in vm.itemData">
+
+            <p>Název {{item.name}}</p>
+            <p>Typ {{item.type}}</p>
+            <p>Žánr {{item.genre}}</p>
+            <p>Rok vydání {{item.year}}</p>
+            <p>Popis {{item.textShort}}</p>
+            <p>{{item.textLong}}</p>
+
+        </div>
+    </div>
+</div>
+<footer class="blockquote-footer" style="position: absolute; bottom: 0; background-color: #5a6268;">
+    <div class="container">
+        <p class="text-muted" th:text="${#dates.format(datetime,'dd MMM yyyy HH:mm')}">Page was rendered today.</p>
+    </div>
+</footer>
+</body>
+</html>
