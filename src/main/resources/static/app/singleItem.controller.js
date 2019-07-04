@@ -5,7 +5,6 @@
         .controller('SingleItemController', SingleItemController);
     SingleItemController.$inject=['$http'];
 
-
     function SingleItemController($http) {
         var vm=this;
 
@@ -13,11 +12,13 @@
 
         vm.getById=getById;
 
+
+
+
         init();
         function init() {
-            var id = document.getElementsByTagName('th:id');
-            console.log(id);
-            getById(2);
+            var id= document.getElementById("itemId").textContent;
+            getById(id);
 
         }
 

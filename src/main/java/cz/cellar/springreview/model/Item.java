@@ -1,9 +1,12 @@
 package cz.cellar.springreview.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Item {
@@ -11,9 +14,12 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+
     private String name;
+
     private double year;
     private String type;
+
     private String genre;
     private String textShort;
     private String textLong;
@@ -22,7 +28,7 @@ public class Item {
 
     }
 
-    public Item(String name, double year, String type, String genre, String textShort, String textLong) {
+    public Item(@JsonProperty("name")String name, @JsonProperty("year")double year, @JsonProperty("type")String type, @JsonProperty("genre")String genre, @JsonProperty("textShort")String textShort, @JsonProperty("textLong")String textLong) {
         this.name = name;
         this.year = year;
         this.type = type;

@@ -15,7 +15,7 @@
 
 </head>
 <body ng-app="app" ng-controller="ItemsController as vm">
-<header>
+<header style="position: relative; left: 0; top: 0; width: 100%; background-color: #5a6268;">
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <div class="navbar-brand">
@@ -25,10 +25,10 @@
         </div>
     </nav>
 </header>
-<div>
+<div style="position: relative">
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center">
-
+            <a href="/create">Vytvořit položku</a>
             <div class="btn-group" role="group">
                 <button ng-click="vm.getAll()" type="button" class="btn">Všechny</button>
                 <button ng-click="vm.getGenreRock()" type="button" class="btn btn-light">Rock</button>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-<footer class="blockquote-footer" style="position: absolute; bottom: 0; background-color: #5a6268;">
+<footer class="blockquote-footer" style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #5a6268;">
     <div class="container">
         <p class="text-muted" th:text="${#dates.format(datetime,'dd MMM yyyy HH:mm')}">Page was rendered today.</p>
     </div>

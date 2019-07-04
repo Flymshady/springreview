@@ -3,8 +3,10 @@ package cz.cellar.springreview.api;
 import cz.cellar.springreview.dao.ItemRepository;
 import cz.cellar.springreview.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,13 +36,13 @@ public class ItemController {
     public List<Item> getByGenre(@PathVariable String genre){
         return itemRepository.findByGenreEquals(genre);
     }
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public List<Item> create(@RequestBody Item item){
-        itemRepository.save(item);
 
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public @ResponseBody List<Item> create(@Valid @NonNull @RequestBody Item item){
+        itemRepository.save(item);
         return itemRepository.findAll();
     }
-    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
     public List<Item> remove(@PathVariable long id){
         itemRepository.deleteById(id);
         return itemRepository.findAll();

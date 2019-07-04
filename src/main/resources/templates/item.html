@@ -14,15 +14,16 @@
     <script type="text/javascript" src="/static/app/singleItem.controller.js" th:src="@{/app/singleItem.controller.js}"></script>
 
 </head>
-<body ng-app="app" ng-controller="SingleItemController as vm" ng-init="init('${id}')">
-<header>
+<body ng-app="app" ng-controller="SingleItemController as vm">
+<header style="position: relative; left: 0; top: 0; width: 100%; background-color: #5a6268;">
+ <p hidden id="itemId" th:value="${id}" th:text="${id}">Id</p>
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <div class="navbar-brand">
                 <a class="navbar-brand" href="/">Review App</a>
             </div>
             <p class="navbar-text" th:text="'Signed in as '+${username}" style="margin-right: 10px;">Signed in as Anonymus</p>
-        <p th:text="${id}">Id</p>
+
         </div>
     </nav>
 </header>
@@ -30,20 +31,22 @@
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center" ng-repeat="item in vm.itemData">
 
-            <p>Název {{item.name}}</p>
-            <p>Typ {{item.type}}</p>
-            <p>Žánr {{item.genre}}</p>
-            <p>Rok vydání {{item.year}}</p>
-            <p>Popis {{item.textShort}}</p>
-            <p>{{item.textLong}}</p>
+            <h1>Název: {{item.name}}</h1>
+            <p>Typ: {{item.type}}</p>
+            <p>Žánr: {{item.genre}}</p>
+            <p>Rok vydání: {{item.year}}</p>
+            <p>Popis: {{item.textShort}}</p>
+            <p style="width: 80%; position: relative; word-break: break-all;">{{item.textLong}}</p>
 
         </div>
     </div>
 </div>
-<footer class="blockquote-footer" style="position: absolute; bottom: 0; background-color: #5a6268;">
+<footer class="blockquote-footer" style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #5a6268;">
     <div class="container">
         <p class="text-muted" th:text="${#dates.format(datetime,'dd MMM yyyy HH:mm')}">Page was rendered today.</p>
     </div>
 </footer>
+<script type="text/javascript" src="/static/app/singleItem.controller.js" th:src="@{/app/singleItem.controller.js}"></script>
+
 </body>
 </html>

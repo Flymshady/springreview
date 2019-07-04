@@ -36,4 +36,12 @@ public class ViewController {
         model.addAttribute("id", id);
         return "item";
     }
+
+    @RequestMapping("/create")
+    public String create(Model model){
+        model.addAttribute("datetime", new Date());
+        model.addAttribute("username", "Štěpán Cellar");
+        model.addAttribute("mode", appMode );
+        return "create";
+    }
 }
