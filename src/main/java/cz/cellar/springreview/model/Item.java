@@ -2,26 +2,31 @@ package cz.cellar.springreview.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Table(name="item")
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
-
+    @Column(name="item_id")
+    private Long id;
+    @Column(name="name")
+    @NotBlank
     private String name;
-
+    @Column(name="year")
     private int year;
+    @Column(name="type")
+    @NotBlank
     private String type;
-
+    @Column(name="genre")
+    @NotBlank
     private String genre;
+    @Column(name="text_short")
     private String textShort;
+    @Column(name="text_long")
     private String textLong;
 
     public Item(){
@@ -37,7 +42,7 @@ public class Item {
         this.textLong = textLong;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -45,7 +50,7 @@ public class Item {
         return name;
     }
 
-    public double getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -63,5 +68,29 @@ public class Item {
 
     public String getTextLong() {
         return textLong;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setTextShort(String textShort) {
+        this.textShort = textShort;
+    }
+
+    public void setTextLong(String textLong) {
+        this.textLong = textLong;
     }
 }

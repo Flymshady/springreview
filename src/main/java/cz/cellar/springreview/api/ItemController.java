@@ -1,14 +1,15 @@
 package cz.cellar.springreview.api;
 
-import cz.cellar.springreview.dao.ItemRepository;
+import cz.cellar.springreview.exception.ResourceNotFoundException;
+import cz.cellar.springreview.repository.ItemRepository;
 import cz.cellar.springreview.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/items")
 @RestController
@@ -28,8 +29,8 @@ public class ItemController {
 
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public List<Item> getById(@PathVariable long id){
-        return itemRepository.findById(id);
+    public Item getById(@PathVariable(value = "id") Long id){
+        return itemRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Item", "id", id));
     }
 
     @RequestMapping(value = "/genre/{genre}", method = RequestMethod.GET)
@@ -38,14 +39,36 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public @ResponseBody List<Item> create(@Valid @NonNull @RequestBody Item item){
-        itemRepository.save(item);
-        return itemRepository.findAll();
+    public @ResponseBody Item create(@Valid @NonNull @RequestBody Item item){
+       return itemRepository.save(item);
+
     }
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
-    public List<Item> remove(@PathVariable long id){
-        itemRepository.deleteById(id);
+    public List<Item> remove(@PathVariable(value = "id") Long id){
+        Item item = itemRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Item", "id", id));
+
+        itemRepository.delete(item);
+       // return ResponseEntity.ok().build();
         return itemRepository.findAll();
 
     }
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public Item update(@PathVariable(value = "id") Long id,
+        @Valid @RequestBody Item itemDetails){
+        Item item = itemRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Item", "id", id));
+        item.setName(itemDetails.getName());
+        item.setYear(itemDetails.getYear());
+        item.setGenre(itemDetails.getGenre());
+        item.setType(itemDetails.getType());
+        item.setTextShort(itemDetails.getTextShort());
+        item.setTextLong(itemDetails.getTextLong());
+
+        Item updatedItem = itemRepository.save(item);
+        return updatedItem;
+
+
+    }
+
 }

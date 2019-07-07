@@ -1,4 +1,4 @@
-package cz.cellar.springreview.dao;
+package cz.cellar.springreview.repository;
 
 import cz.cellar.springreview.model.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +10,4 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     //jpa repository method
     List<Item> findByGenreEquals(String genre);
-    List<Item> findById(long id);
 }

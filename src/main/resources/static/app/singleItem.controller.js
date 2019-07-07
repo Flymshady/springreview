@@ -8,9 +8,10 @@
     function SingleItemController($http) {
         var vm=this;
 
-        vm.itemData=[];
+        vm.itemData={};
 
         vm.getById=getById;
+
 
 
 
@@ -26,7 +27,8 @@
             var url="/items/detail/"+id;
             var itemDataPromise = $http.get(url);
             itemDataPromise.then(function (response) {
-                vm.itemData=response.data;
+               vm.itemData=response;
+
             });
         }
 

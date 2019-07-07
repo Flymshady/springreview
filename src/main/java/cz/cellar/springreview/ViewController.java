@@ -29,7 +29,7 @@ public class ViewController {
     }
 
     @RequestMapping("/item/{id}")
-    public String item(Model model, @PathVariable long id){
+    public String item(Model model, @PathVariable Long id){
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Štěpán Cellar");
         model.addAttribute("mode", appMode );
@@ -42,6 +42,14 @@ public class ViewController {
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Štěpán Cellar");
         model.addAttribute("mode", appMode );
-        return "create";
+        return "createItem";
+    }
+    @RequestMapping("/update/{id}")
+    public String updateItem(Model model, @PathVariable Long id){
+        model.addAttribute("datetime", new Date());
+        model.addAttribute("username", "Štěpán Cellar");
+        model.addAttribute("mode", appMode );
+        model.addAttribute("id", id);
+        return "updateItem";
     }
 }
