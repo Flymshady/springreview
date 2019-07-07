@@ -17,7 +17,7 @@ public class Item {
 
     private String name;
 
-    private double year;
+    private int year;
     private String type;
 
     private String genre;
@@ -28,7 +28,7 @@ public class Item {
 
     }
 
-    public Item(@JsonProperty("name")String name, @JsonProperty("year")double year, @JsonProperty("type")String type, @JsonProperty("genre")String genre, @JsonProperty("textShort")String textShort, @JsonProperty("textLong")String textLong) {
+    public Item(@JsonProperty("name")String name, @JsonProperty("year")int year, @JsonProperty("type")String type, @JsonProperty("genre")String genre, @JsonProperty("textShort")String textShort, @JsonProperty("textLong")String textLong) {
         this.name = name;
         this.year = year;
         this.type = type;
