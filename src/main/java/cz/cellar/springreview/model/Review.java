@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "review")
 public class Review {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="review_id")
     private Long id;
