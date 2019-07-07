@@ -28,9 +28,7 @@
             var itemDataPromise = $http.get(url);
             itemDataPromise.then(function (response) {
                vm.itemData=response;
-
             });
         }
-
     }
 })();

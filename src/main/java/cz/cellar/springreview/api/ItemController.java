@@ -59,6 +59,7 @@ public class ItemController {
         Item item = itemRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Item", "id", id));
         item.setName(itemDetails.getName());
+        item.setAuthor(itemDetails.getAuthor());
         item.setYear(itemDetails.getYear());
         item.setGenre(itemDetails.getGenre());
         item.setType(itemDetails.getType());

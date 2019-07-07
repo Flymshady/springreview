@@ -26,6 +26,7 @@ app.controller('itemUpdateController', ['$scope', '$http', '$window', function($
     function setToTheFields(){
         $scope.originalItem= {
             name: vm.itemData.data.name,
+            author: vm.itemData.data.author,
             type:vm.itemData.data.type,
             genre:vm.itemData.data.genre,
             year:vm.itemData.data.year,

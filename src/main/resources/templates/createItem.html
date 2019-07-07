@@ -29,22 +29,25 @@
         <div class="col-lg-auto offset-2 align-content-center" >
             <h1>Vytvoření nové položky</h1>
              <form ng-submit="submitItemForm()">
-             <label for="name" >Název: </label><br />
-             <input type="text" id="name" ng-model="item.name" required="true"/> <br />
+                 <label for="name" >Název: </label><br />
+                 <input type="text" id="name" ng-model="item.name" required="true"/> <br />
 
-             <label for="type">Typ: </label><br />
-             <input type="text" id="type" ng-model="item.type" required="true" /> <br />
+                 <label for="author">Autor: </label><br />
+                 <input type="text" id="author" ng-model="item.author" required="true" /> <br />
 
-             <label for="year" >Rok: </label><br />
-             <input type="text" id="year" ng-model="item.year" required="true"/> <br /><br />
+                 <label for="type">Typ: </label><br />
+                 <input type="text" id="type" ng-model="item.type" required="true" /> <br />
 
-              <label for="genre" >Žánr: </label><br />
-             <input type="text" id="genre" ng-model="item.genre" required="true"/> <br />
+                 <label for="year" >Rok: </label><br />
+                 <input type="text" id="year" ng-model="item.year" required="true"/> <br /><br />
 
-             <label for="textShort">Popisek: </label><br />
-             <input type="text" id="textShort" ng-model="item.textShort" /> <br />
+                 <label for="genre" >Žánr: </label><br />
+                 <input type="text" id="genre" ng-model="item.genre" required="true"/> <br />
 
-             <label for="textLong" >Text: </label><br />
+                 <label for="textShort">Popisek: </label><br />
+                 <input type="text" id="textShort" ng-model="item.textShort" /> <br />
+
+                 <label for="textLong" >Text: </label><br />
                  <textarea cols="120" rows="5" id="textLong" ng-model="item.textLong" ></textarea> <br /><br />
 
                  <input type="submit" value="Submit" />

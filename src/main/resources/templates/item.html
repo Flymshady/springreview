@@ -30,13 +30,14 @@
 <div>
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center">
-            <a href="/update/{{vm.itemData.id}}">Upravit</a>
-            <h1>Název: <span ng-bind="vm.itemData.name"></span></h1>
-            <p>Typ: <span ng-bind="vm.itemData.type"></span></p>
-            <p>Žánr: <span ng-bind="vm.itemData.genre"></span></p>
-            <p>Rok vydání: <span ng-bind="vm.itemData.year"></span></p>
-            <p>Popis: <span ng-bind="vm.itemData.textShort"></span></p>
-            <div style="max-width: 1000px; position: relative; word-break: break-all;"><span ng-bind="vm.itemData.textLong"></span></div>
+            <a href="/update/{{vm.itemData.data.id}}">Upravit</a>
+            <h1>Název: <span ng-bind="vm.itemData.data.name"></span></h1>
+            <h2>Author: <span ng-bind="vm.itemData.data.author"></span> </h2>
+            <p>Typ: <span ng-bind="vm.itemData.data.type"></span></p>
+            <p>Žánr: <span ng-bind="vm.itemData.data.genre"></span></p>
+            <p>Rok vydání: <span ng-bind="vm.itemData.data.year"></span></p>
+            <p>Popis: <span ng-bind="vm.itemData.data.textShort"></span></p>
+            <div style="max-width: 1000px; position: relative; word-break: break-all;"><span ng-bind="vm.itemData.data.textLong"></span></div>
 
         </div>
     </div>

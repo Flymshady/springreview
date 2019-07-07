@@ -16,6 +16,9 @@ public class Item {
     @Column(name="name")
     @NotBlank
     private String name;
+    @Column(name="author")
+    @NotBlank
+    private String author;
     @Column(name="year")
     private int year;
     @Column(name="type")
@@ -33,8 +36,9 @@ public class Item {
 
     }
 
-    public Item(@JsonProperty("name")String name, @JsonProperty("year")int year, @JsonProperty("type")String type, @JsonProperty("genre")String genre, @JsonProperty("textShort")String textShort, @JsonProperty("textLong")String textLong) {
+    public Item(@JsonProperty("name")String name, @JsonProperty("author")String author,@JsonProperty("year")int year, @JsonProperty("type")String type, @JsonProperty("genre")String genre, @JsonProperty("textShort")String textShort, @JsonProperty("textLong")String textLong) {
         this.name = name;
+        this.author=author;
         this.year = year;
         this.type = type;
         this.genre = genre;
@@ -92,5 +96,12 @@ public class Item {
 
     public void setTextLong(String textLong) {
         this.textLong = textLong;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

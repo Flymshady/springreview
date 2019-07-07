@@ -5,6 +5,7 @@ app.controller('itemController', ['$scope', '$http', '$window', function($scope,
 
     $scope.originalItem= {
         name:'Nazev',
+        author:'Autor',
         type:'Album',
         genre:'rock',
         year:'2019',
