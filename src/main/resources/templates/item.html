@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, person-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Review App</title>
     <link th:if="${mode == 'development'}" rel="stylesheet" href="../static/bootstrap.css" th:href="@{/bootstrap.css}"/>
@@ -30,7 +30,7 @@
 <div>
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center">
-            <a href="/update/{{vm.itemData.data.id}}">Upravit</a>
+            <a href="/admin/update/{{vm.itemData.data.id}}">Upravit</a>
             <h1>Název: <span ng-bind="vm.itemData.data.name"></span></h1>
             <h2>Author: <span ng-bind="vm.itemData.data.author"></span> </h2>
             <p>Typ: <span ng-bind="vm.itemData.data.type"></span></p>

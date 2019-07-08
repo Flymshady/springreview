@@ -1,7 +1,8 @@
-package cz.cellar.springreview;
+package cz.cellar.springreview.view;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,14 +38,15 @@ public class ViewController {
         return "item";
     }
 
-    @RequestMapping("/create")
+    @RequestMapping("/admin/create")
     public String create(Model model){
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Štěpán Cellar");
         model.addAttribute("mode", appMode );
         return "createItem";
     }
-    @RequestMapping("/update/{id}")
+
+    @RequestMapping("/admin/update/{id}")
     public String updateItem(Model model, @PathVariable Long id){
         model.addAttribute("datetime", new Date());
         model.addAttribute("username", "Štěpán Cellar");

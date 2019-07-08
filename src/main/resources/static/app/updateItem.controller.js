@@ -14,7 +14,7 @@ app.controller('itemUpdateController', ['$scope', '$http', '$window', function($
     };
 
     function getById(id) {
-        var url="/items/detail/"+id;
+        var url="/api/items/detail/"+id;
         var itemDataPromise = $http.get(url);
         itemDataPromise.then(function (response) {
             vm.itemData=response;
@@ -41,7 +41,7 @@ app.controller('itemUpdateController', ['$scope', '$http', '$window', function($
     $scope.submitItemForm = function () {
 
         $http({
-            method:'PUT', url:'/items/update/'+id, data:$scope.item,
+            method:'PUT', url:'/api/items/admin/update/'+id, data:$scope.item,
             headers:{'Content-Type':'application/json'}
         }).then(successCallback, errorCallback);
 

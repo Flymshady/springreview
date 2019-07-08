@@ -1,6 +1,6 @@
 var app = angular.module('app', []);
 
-app.controller('itemController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+app.controller('itemController', ['$scope', '$http', function($scope, $http) {
 
 
     $scope.originalItem= {
@@ -17,7 +17,7 @@ app.controller('itemController', ['$scope', '$http', '$window', function($scope,
     $scope.submitItemForm = function () {
 
         $http({
-            method:'POST', url:'/items/create', data:$scope.item,
+            method:'POST', url:'/api/items/admin/create', data:$scope.item,
             headers:{'Content-Type':'application/json'}
         }).then(successCallback, errorCallback);
 
@@ -25,7 +25,6 @@ app.controller('itemController', ['$scope', '$http', '$window', function($scope,
         function successCallback(response){
             $scope.item = angular.copy($scope.originalItem);
             alert('Item saved successfully.');
-            $window.location.href='/';
         }
         function errorCallback(error){
             alert('Error occurred');

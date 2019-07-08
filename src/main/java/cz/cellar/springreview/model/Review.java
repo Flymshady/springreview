@@ -1,6 +1,9 @@
 package cz.cellar.springreview.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,10 +15,18 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="review_id")
     private Long id;
-    @Column(name="user_id")
-    private Long userId;
-    @Column(name="item_id")
-    private Long itemId;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Person person;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Item item;
     @NotBlank
     @Column(name="text_short")
     private String textShort;
@@ -25,9 +36,9 @@ public class Review {
 
     public Review(){}
 
-    public Review(@JsonProperty("userId")Long userId,@JsonProperty("itemId") Long itemId, @JsonProperty("textShort")String textShort,@JsonProperty("textLong") String textLong) {
-        this.userId = userId;
-        this.itemId = itemId;
+    public Review(@JsonProperty("person") Person person, @JsonProperty("item") Item item, @JsonProperty("textShort")String textShort, @JsonProperty("textLong") String textLong) {
+        this.person = person;
+        this.item = item;
         this.textShort = textShort;
         this.textLong = textLong;
     }
@@ -36,12 +47,12 @@ public class Review {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Person getPerson() {
+        return person;
     }
 
-    public Long getItemId() {
-        return itemId;
+    public Item getItem() {
+        return item;
     }
 
     public String getTextShort() {
@@ -58,5 +69,12 @@ public class Review {
 
     public void setTextLong(String textLong) {
         this.textLong = textLong;
+    }
+
+    public void setItem(Item item){
+        this.item=item;
+    }
+    public void setPerson(Person person){
+        this.person=person;
     }
 }

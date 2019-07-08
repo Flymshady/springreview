@@ -24,7 +24,7 @@
         }
 
         function getById(id) {
-            var url="/items/detail/"+id;
+            var url="/api/items/detail/"+id;
             var itemDataPromise = $http.get(url);
             itemDataPromise.then(function (response) {
                vm.itemData=response;
