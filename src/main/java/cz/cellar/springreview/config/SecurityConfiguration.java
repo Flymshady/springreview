@@ -3,13 +3,16 @@ package cz.cellar.springreview.config;
 import cz.cellar.springreview.repository.PersonRepository;
 import cz.cellar.springreview.service.CustomUserDatailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -19,14 +22,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private CustomUserDatailsService userDetailsService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public SecurityConfiguration(CustomUserDatailsService customUserDatailsService){
+        this.userDetailsService=customUserDatailsService;
+    }
 
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(getPasswordEncoder());
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)  {
+
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -41,18 +46,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
+  @Bean
+    DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
 
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return encode(charSequence).equals(s);
-            }
-        };
+        return daoAuthenticationProvider;
+  }
 
-    }
+  @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+  }
 }
+

@@ -1,12 +1,15 @@
 package cz.cellar.springreview.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -23,9 +26,11 @@ public class Person {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "role_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Role role;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
@@ -33,19 +38,19 @@ public class Person {
 
     public Person(){}
 
-    public Person(Person person){
-        this.roles=person.getRoles();
+   /* public Person(Person person){
+        this.role=person.getRole();
         this.name=person.getName();
         this.username=person.getUsername();
         this.password=person.getPassword();
         this.id=person.getId();
-    }
+    }*/
 
-    public Person(@JsonProperty(value = "username") String username, @JsonProperty(value = "password") String password, @JsonProperty(value = "name") String name, @JsonProperty(value = "role") Role roles) {
+    public Person(@JsonProperty(value = "username") String username, @JsonProperty(value = "password") String password, @JsonProperty(value = "name") String name,  Role role) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.roles= (Set<Role>) roles;
+        this.role=  role;
     }
 
     public String getUsername() {
@@ -60,8 +65,8 @@ public class Person {
         return name;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
     public Long getId() {
@@ -80,7 +85,7 @@ public class Person {
         this.name = name;
     }
 
-    public void setRolse(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

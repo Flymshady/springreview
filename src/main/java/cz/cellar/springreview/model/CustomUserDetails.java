@@ -4,31 +4,40 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class CustomUserDetails extends Person implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
-    public CustomUserDetails(final  Person person){
-        super(person);
+    private Person person;
+
+
+    public CustomUserDetails(Person person){
+        this.person=person;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_"+role.getName()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+this.person.getRole().getName());
+        authorities.add(authority);
+
+        return authorities;
+
     }
 
     @Override
     public String getPassword() {
-        return super.getPassword();
+        return this.person.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return super.getUsername();
+        return this.person.getUsername();
     }
 
     @Override
