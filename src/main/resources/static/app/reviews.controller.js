@@ -12,6 +12,7 @@
         vm.item;
         vm.getByItemId=getByItemId;
         vm.getItem=getItem;
+        vm.deleteReview=deleteReview;
 
         init();
         function init() {
@@ -33,6 +34,14 @@
             itemsPromise.then(function (response) {
                 vm.reviews=response.data;
             });
+        }
+        function deleteReview(reviewId) {
+            var itemId= document.getElementById("itemId").textContent;
+            var url="/api/reviews/remove/"+reviewId+"/items/"+itemId;
+            $http.post(url).then(function (response) {
+                vm.items=response.data;
+            });
+
         }
 
 

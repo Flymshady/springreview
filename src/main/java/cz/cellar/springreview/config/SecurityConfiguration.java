@@ -42,10 +42,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
               //  .antMatchers("/api/**", "/", "index.html").authenticated()
                 .antMatchers("**/admin/**", "/admin/**", "/api/items/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/reviews/create/**", "/api/reviews/update/**", "/api/reviews/remove/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin().permitAll()
         .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
-        ;
+
 
     }
 

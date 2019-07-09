@@ -51,6 +51,14 @@ public class ViewController {
         return "reviews";
     }
 
+    @RequestMapping("/item/{id}/reviews/create")
+    public String create(Model model, @PathVariable Long id){
+        model.addAttribute("datetime", new Date());
+        model.addAttribute("mode", appMode );
+        model.addAttribute("id", id);
+        return "createReview";
+    }
+
     @RequestMapping("/admin/item/{id}")
     public String adminItem(Model model, @PathVariable Long id){
         model.addAttribute("datetime", new Date());
