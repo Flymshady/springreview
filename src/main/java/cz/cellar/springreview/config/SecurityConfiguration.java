@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -42,7 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
               //  .antMatchers("/api/**", "/", "index.html").authenticated()
                 .antMatchers("**/admin/**", "/admin/**", "/api/items/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
-                .and().formLogin().permitAll();
+                .and().formLogin().permitAll()
+        .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+        ;
 
     }
 

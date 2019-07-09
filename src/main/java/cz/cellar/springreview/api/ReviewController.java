@@ -1,6 +1,7 @@
 package cz.cellar.springreview.api;
 
 import cz.cellar.springreview.exception.ResourceNotFoundException;
+import cz.cellar.springreview.model.Person;
 import cz.cellar.springreview.model.Review;
 import cz.cellar.springreview.repository.ItemRepository;
 import cz.cellar.springreview.repository.PersonRepository;
@@ -44,9 +45,9 @@ public class ReviewController {
         return reviewRepository.findByItemId(itemId);
     }
 
-    @RequestMapping(value = "/create/{itemId}/{personId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/{itemId}", method = RequestMethod.POST)
     public @ResponseBody Review create(@PathVariable(value = "itemId") Long itemId,
-                                       @PathVariable(value = "personId") Long personId,
+                                       Long personId,
                                        @Valid @NonNull @RequestBody Review review){
         return itemRepository.findById(itemId).map(item -> {
             review.setItem(item);
@@ -59,11 +60,13 @@ public class ReviewController {
 
     @RequestMapping(value = "/remove/{reviewId}/items/{itemId}", method = RequestMethod.POST)
     public ResponseEntity<?> remove(@PathVariable(value = "reviewId") Long reviewId,
-                                 @PathVariable(value = "itemId") Long itemId){
+                                 @PathVariable(value = "itemId") Long itemId,
+                                     Long personId){
 
-        return reviewRepository.findByIdAndItemId(reviewId, itemId).map(review -> {
+        return reviewRepository.findByIdAndItemIdAndPersonId(reviewId, itemId, personId).map(review -> {
+
             reviewRepository.delete(review);
-            return ResponseEntity.ok().build() ;
+            return ResponseEntity.ok().build();
         }).orElseThrow(()-> new ResourceNotFoundException("Review", "id", reviewId));
 
 
@@ -72,11 +75,16 @@ public class ReviewController {
     @RequestMapping(value = "/update/{reviewId}/items/{itemId}", method = RequestMethod.PUT)
     public Review update(@PathVariable(value = "reviewId") Long reviewId,
                          @PathVariable(value = "itemId") Long itemId,
+                       Long personId,
                        @Valid @RequestBody Review reviewRequest){
 
         if(!itemRepository.existsById(itemId)){
             throw new ResourceNotFoundException("Item", "id", itemId);
         }
+        if(!personRepository.existsById(personId)){
+            throw new ResourceNotFoundException("Person", "id", personId);
+        }
+
 
         return reviewRepository.findById(reviewId).map(review -> {
             review.setTextShort(reviewRequest.getTextShort());

@@ -49,7 +49,7 @@ app.controller('itemUpdateController', ['$scope', '$http', '$window', function($
         function successCallback(response){
             $scope.item = angular.copy($scope.originalItem);
             alert('Item updated successfully.');
-            $window.location.href='/item/'+id;
+            $window.location.href='/admin/item/'+id;
         }
         function errorCallback(error){
             alert('Error occurred');

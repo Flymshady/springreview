@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,14 +16,13 @@
 </head>
 <body ng-app="app" ng-controller="SingleItemController as vm">
 <header style="position: relative; left: 0; top: 0; width: 100%; background-color: #5a6268;">
- <p hidden id="itemId" th:value="${id}" th:text="${id}">Id</p>
+    <p hidden id="itemId" th:value="${id}" th:text="${id}">Id</p>
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <div class="navbar-brand">
                 <a class="navbar-brand" href="/">Review App</a>
                 <span><a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/admin">Admin</a></span>
                 <span><a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{~/login}">Přihlásit</a></span>
-                <span><a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{~/register}">Registrovat</a></span>
                 <span><a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Odhlásit</a></span>
 
             </div>
@@ -36,7 +34,7 @@
 <div>
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center">
-
+            <a href="/admin/update/{{vm.itemData.data.id}}">Upravit</a>
             <h1>Název: <span ng-bind="vm.itemData.data.name"></span></h1>
             <h2>Author: <span ng-bind="vm.itemData.data.author"></span> </h2>
             <p>Typ: <span ng-bind="vm.itemData.data.type"></span></p>
@@ -44,7 +42,6 @@
             <p>Rok vydání: <span ng-bind="vm.itemData.data.year"></span></p>
             <p>Popis: <span ng-bind="vm.itemData.data.textShort"></span></p>
             <div style="max-width: 1000px; position: relative; word-break: break-all;"><span ng-bind="vm.itemData.data.textLong"></span></div>
-            <a href="/item/{{vm.itemData.data.id}}/reviews">Recenze</a>
 
         </div>
     </div>

@@ -17,7 +17,7 @@ import java.util.Set;
 public class Person {
 
     @NotBlank
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @NotBlank
     @Column(name = "password")
@@ -52,6 +52,12 @@ public class Person {
         this.name = name;
         this.role=  role;
     }
+    public Person(@JsonProperty(value = "username") String username, @JsonProperty(value = "password") String password, @JsonProperty(value = "name") String name) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+    }
+
 
     public String getUsername() {
         return username;

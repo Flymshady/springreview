@@ -1,6 +1,6 @@
 <!doctype html>
 <html ng-app="app"
-      lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+      lang="cs" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -20,8 +20,12 @@
         <div class="container-fluid">
             <div class="navbar-brand">
                 <a class="navbar-brand" href="/">Review App</a>
+                <span><a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-brand" href="/admin">Admin</a></span>
+                <span><a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{~/login}">Přihlásit</a></span>
+                <span><a sec:authorize="isAuthenticated()" class="navbar-brand" href="/logout">Odhlásit</a></span>
+
             </div>
-            <p class="navbar-text" th:text="'Signed in as '+${username}" style="margin-right: 10px;">Signed in as Anonymus</p>
+            <p sec:authorize="isAuthenticated()" class="navbar-text"  style="margin-right: 10px;">Signed in as <span sec:authentication="name"></span></p>
         </div>
     </nav>
 </header>
