@@ -1,8 +1,10 @@
 package cz.cellar.springreview.api;
 
 import cz.cellar.springreview.exception.ResourceNotFoundException;
+import cz.cellar.springreview.model.Review;
 import cz.cellar.springreview.repository.ItemRepository;
 import cz.cellar.springreview.model.Item;
+import cz.cellar.springreview.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -10,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/items/")
@@ -17,10 +20,12 @@ import java.util.List;
 public class ItemController {
 
     private ItemRepository itemRepository;
+    private ReviewRepository reviewRepository;
 
     @Autowired
-    public ItemController(ItemRepository itemRepository){
+    public ItemController(ItemRepository itemRepository, ReviewRepository reviewRepository){
        this.itemRepository=itemRepository;
+       this.reviewRepository=reviewRepository;
 
     }
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -51,6 +56,10 @@ public class ItemController {
         Item item = itemRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Item", "id", id));
 
+
+        for (Review review : reviewRepository.findByItemId(id)){
+            reviewRepository.delete(review);
+        }
         itemRepository.delete(item);
        // return ResponseEntity.ok().build();
         return itemRepository.findAll();

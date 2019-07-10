@@ -33,6 +33,10 @@ public class CustomUserDetails implements UserDetails {
         return this.person.getId();
     }
 
+    public String getRoleString(){
+        return this.person.getRole().getName();
+    }
+
     @Override
     public String getPassword() {
         return this.person.getPassword();

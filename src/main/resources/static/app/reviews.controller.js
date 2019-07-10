@@ -39,9 +39,15 @@
             var itemId= document.getElementById("itemId").textContent;
             var url="/api/reviews/remove/"+reviewId+"/items/"+itemId;
             $http.post(url).then(function (response) {
-                vm.items=response.data;
-            });
+                vm.reviews=response.data;
+            }).then(successCallback, errorCallback);
 
+        }
+        function successCallback(response) {
+            alert('Review deleted successfully.');
+        }
+        function errorCallback(error) {
+            alert('Error occurred: '+error.data.message);
         }
 
 

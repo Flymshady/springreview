@@ -32,13 +32,13 @@
 <div>
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center" >
-            <h1>Vytvoření nové recenze</h1>
+            <h1>Vytvoření nové recenze</h1><a th:href="@{/item/{id}/reviews(id=${id})}">Zpět na recenze</a>
             <form ng-submit="submitItemForm()">
                 <label for="textShort">Popisek: </label><br />
-                <input type="text" id="textShort" ng-model="review.textShort" /> <br />
+                <input type="text" id="textShort" ng-model="review.textShort" required="true"/> <br />
 
                 <label for="textLong" >Text: </label><br />
-                <textarea cols="120" rows="5" id="textLong" ng-model="review.textLong" ></textarea> <br /><br />
+                <textarea cols="120" rows="5" id="textLong" ng-model="review.textLong" required="true"></textarea> <br /><br />
 
                 <input type="submit" value="Submit" />
                 <input type="reset" ng-click="resetForm()" value="Reset" />

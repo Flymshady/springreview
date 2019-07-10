@@ -10,12 +10,12 @@
     <link th:if="${mode == 'development'}" rel="stylesheet" href="../static/bootstrap.css" th:href="@{/bootstrap.css}"/>
     <link th:if="${mode == 'production'}" rel="stylesheet" href="../static/bootstrap.min.css" th:href="@{/bootstrap.min.css}"/>
     <script type="text/javascript" src="/static/angular.min.js" th:src="@{/angular.min.js}"></script>
-    <script type="text/javascript" src="/static/app/register.controller.js" th:src="@{/app/register.controller.js}"></script>
+    <script type="text/javascript" src="/static/app/updateReview.controller.js" th:src="@{/app/updateReview.controller.js}"></script>
 
 </head>
-<body ng-controller="personController" >
+<body ng-controller="reviewUpdateController" >
 <header style="position: relative; left: 0; top: 0; width: 100%; background-color: #5a6268;">
-    <p hidden id="itemId" th:value="${id}" th:text="${id}">Id</p>
+    <p hidden id="reviewId" th:value="${reviewId}" th:text="${reviewId}">Id</p>
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <div class="navbar-brand">
@@ -32,16 +32,14 @@
 <div>
     <div class="row">
         <div class="col-lg-auto offset-2 align-content-center" >
-            <h1>Registrace</h1>
-            <form name ="form" ng-submit="submitPersonForm()">
-                <label for="name">Jméno a příjmení: </label><br />
-                <input type="text" id="name" ng-model="person.name" required="true"/> <br />
+            <h1>Úprava recenze </h1><a th:href="@{/item/{id}/reviews(id=${itemId})}">Zpět na recenze</a>
+            <form ng-submit="submitReviewForm()">
 
-                <label for="username" >Jméno účtu: </label><br />
-                <input type="text" id="username" ng-model="person.username" required="true"/> <br />
-                <div ng-if="form.$error.usernameExists">Username je zabrané</div>
-                <label for="password" >Heslo: </label><br />
-                <input type="password" id="password" ng-model="person.password" required="true"/> <br />
+                <label for="textShort">Popisek: </label><br />
+                <input type="text" id="textShort" ng-model="review.textShort" required="true"/> <br />
+
+                <label for="textLong" >Text: </label><br />
+                <textarea cols="120" rows="5" id="textLong" ng-model="review.textLong" required="true"></textarea> <br /><br />
 
                 <input type="submit" value="Submit" />
                 <input type="reset" ng-click="resetForm()" value="Reset" />

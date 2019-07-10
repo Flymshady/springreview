@@ -45,11 +45,10 @@ public class PersonController {
         return personRepository.save(person);
 
     }
-    @RequestMapping(value = "/username")
-    public Boolean getByUsername(@RequestBody String username){
-        if(personRepository.findByUsername(username).isPresent()){
-            return false;
-        }
-        return true;
+    @RequestMapping(value = "/username",  method = RequestMethod.POST)
+    public @ResponseBody Boolean getByUsername(@RequestBody String username) {
+
+        return personRepository.existsByUsername(username);
     }
+
 }

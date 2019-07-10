@@ -41,6 +41,7 @@
                  <h3>{{review.textShort}}</h3>
                  <p>{{review.person.username}}</p>
                  <p>{{review.textLong}}</p>
+                <a sec:authorize="isAuthenticated()" href="/item/{{review.item.id}}/reviews/update/{{review.id}}">Upravit</a>
                 <button sec:authorize="isAuthenticated()" class="btn btn-danger" ng-click="vm.deleteReview(review.id)">Odstranit</button>
             </div>
 

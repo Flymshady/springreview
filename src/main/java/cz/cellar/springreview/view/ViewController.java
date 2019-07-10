@@ -1,8 +1,10 @@
 package cz.cellar.springreview.view;
 
+import cz.cellar.springreview.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,7 @@ public class ViewController {
         appMode=environment.getProperty("app-mode");
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = {"/", "/index"})
     public String index(Model model){
         model.addAttribute("datetime", new Date());
         model.addAttribute("mode", appMode );
@@ -83,8 +85,18 @@ public class ViewController {
     }
     @RequestMapping("/register")
     public String register(Model model){
+
+            model.addAttribute("datetime", new Date());
+            model.addAttribute("mode", appMode);
+            return "register";
+
+    }
+    @RequestMapping("/item/{itemId}/reviews/update/{reviewId}")
+    public String updateReview(Model model, @PathVariable Long itemId, @PathVariable Long reviewId ){
         model.addAttribute("datetime", new Date());
         model.addAttribute("mode", appMode );
-        return "register";
+        model.addAttribute("itemId", itemId);
+        model.addAttribute("reviewId", reviewId);
+        return "updateReview";
     }
 }
