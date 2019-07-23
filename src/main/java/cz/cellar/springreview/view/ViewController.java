@@ -1,6 +1,10 @@
 package cz.cellar.springreview.view;
 
+import cz.cellar.springreview.exception.UnauthorizedAccessException;
 import cz.cellar.springreview.model.CustomUserDetails;
+import cz.cellar.springreview.repository.ItemRepository;
+import cz.cellar.springreview.repository.PersonRepository;
+import cz.cellar.springreview.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,10 +21,16 @@ public class ViewController {
 
 
     private String appMode;
+    private ReviewRepository reviewRepository;
+    private ItemRepository itemRepository;
+    private PersonRepository personRepository;
     //constructor injection for app-mode (from application.properties)
     @Autowired
-    public ViewController(Environment environment){
+    public ViewController(Environment environment, PersonRepository personRepository, ReviewRepository reviewRepository, ItemRepository itemRepository){
         appMode=environment.getProperty("app-mode");
+        this.reviewRepository = reviewRepository;
+        this.itemRepository = itemRepository;
+        this.personRepository = personRepository;
     }
 
     @RequestMapping(value = {"/", "/index"})
@@ -92,11 +102,17 @@ public class ViewController {
 
     }
     @RequestMapping("/item/{itemId}/reviews/update/{reviewId}")
-    public String updateReview(Model model, @PathVariable Long itemId, @PathVariable Long reviewId ){
+    public String updateReview(Model model, @PathVariable Long itemId, @PathVariable Long reviewId,@AuthenticationPrincipal CustomUserDetails user ){
         model.addAttribute("datetime", new Date());
         model.addAttribute("mode", appMode );
         model.addAttribute("itemId", itemId);
         model.addAttribute("reviewId", reviewId);
+        if(user==null){
+            return "unauthorized";
+        }
+        if(!reviewRepository.findById(reviewId).equals(reviewRepository.findByIdAndPersonId(reviewId, user.getId()))){
+            return "unauthorized";
+        }
         return "updateReview";
     }
 }
