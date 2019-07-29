@@ -62,7 +62,7 @@ public class ReviewController {
 
     }
 
-    @RequestMapping(value = "/remove/{reviewId}/items/{itemId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/remove/{reviewId}/items/{itemId}", method = RequestMethod.DELETE)
     public List<Review> remove(@PathVariable(value = "reviewId") Long reviewId,
                                  @PathVariable(value = "itemId") Long itemId,
                                     @AuthenticationPrincipal CustomUserDetails user) {

@@ -70,7 +70,7 @@
 
         function deleteItem(id) {
             var url="/api/items/admin/remove/"+id;
-            $http.post(url).then(function (response) {
+            $http.delete(url).then(function (response) {
                vm.items=response.data;
             });
 

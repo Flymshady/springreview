@@ -38,7 +38,7 @@
         function deleteReview(reviewId) {
             var itemId= document.getElementById("itemId").textContent;
             var url="/api/reviews/remove/"+reviewId+"/items/"+itemId;
-            $http.post(url).then(function (response) {
+            $http.delete(url).then(function (response) {
                 vm.reviews=response.data;
             }).then(successCallback, errorCallback);
 

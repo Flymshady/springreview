@@ -6,13 +6,9 @@ import cz.cellar.springreview.repository.ItemRepository;
 import cz.cellar.springreview.model.Item;
 import cz.cellar.springreview.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/api/items/")
@@ -51,7 +47,7 @@ public class ItemController {
 
     }
 
-    @RequestMapping(value = "/admin/remove/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/remove/{id}", method = RequestMethod.DELETE)
     public List<Item> remove(@PathVariable(value = "id") Long id){
         Item item = itemRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Item", "id", id));
@@ -61,7 +57,6 @@ public class ItemController {
             reviewRepository.delete(review);
         }
         itemRepository.delete(item);
-       // return ResponseEntity.ok().build();
         return itemRepository.findAll();
 
     }

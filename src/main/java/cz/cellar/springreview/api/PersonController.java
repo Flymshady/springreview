@@ -1,8 +1,6 @@
 package cz.cellar.springreview.api;
 
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import cz.cellar.springreview.exception.ResourceNotFoundException;
-import cz.cellar.springreview.model.Item;
 import cz.cellar.springreview.model.Person;
 import cz.cellar.springreview.model.Role;
 import cz.cellar.springreview.repository.PersonRepository;
@@ -12,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/persons")

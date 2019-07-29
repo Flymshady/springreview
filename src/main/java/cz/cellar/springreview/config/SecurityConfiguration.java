@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private CustomUserDatailsService userDetailsService;
 
+    @Autowired
     public SecurityConfiguration(CustomUserDatailsService customUserDatailsService){
         this.userDetailsService=customUserDatailsService;
     }
@@ -40,7 +41,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
         http.csrf().disable();
         http.authorizeRequests()
-              //  .antMatchers("/api/**", "/", "index.html").authenticated()
                 .antMatchers("**/admin/**", "/admin/**", "/api/items/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/reviews/create/**", "/api/reviews/update/**", "/api/reviews/remove/**").authenticated()
                 .antMatchers("**/reviews/update/**", "**/reviews/create").authenticated()
