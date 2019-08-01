@@ -1,7 +1,7 @@
 package cz.cellar.springreview.config;
 
 import cz.cellar.springreview.repository.PersonRepository;
-import cz.cellar.springreview.service.CustomUserDatailsService;
+import cz.cellar.springreview.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +23,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private CustomUserDatailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    public SecurityConfiguration(CustomUserDatailsService customUserDatailsService){
-        this.userDetailsService=customUserDatailsService;
+    public SecurityConfiguration(CustomUserDetailsService customUserDetailsService){
+        this.userDetailsService= customUserDetailsService;
     }
 
     @Override
@@ -56,7 +55,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
-
         return daoAuthenticationProvider;
   }
 
@@ -65,4 +63,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
   }
 }
+
 
